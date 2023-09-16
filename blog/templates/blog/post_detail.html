@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p><strong>Topic:</strong> {{ post.topic }}</p>
+<p>{{ post.content }}</p>
+
+<h2>Comments</h2>
+<ul>
+    {% for comment in comments %}
+    <li>
+        {{ comment.content }} - <small>by {{ comment.user.username }}</small>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Link to edit and delete post for the post's author -->
+{% if request.user == post.user %}
+<a href="{% url 'post_edit' pk=post.id %}">Edit Post</a>
+<a href="{% url 'post_delete' pk=post.id %}">Delete Post</a>
+{% endif %}
+{% endblock %}
